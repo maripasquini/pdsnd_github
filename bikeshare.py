@@ -15,6 +15,14 @@ DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'satur
 
 FILTER_OPTIONS = ['month', 'day', 'both', 'none']
 
+CITY_QUESTION = '\nWould you like to see data for Chicago, New York or Washington?\n'
+
+FILTER_QUESTION = '\nWould you like to filter the data by month, day, both or not at all? Type "none" for no time filter.\n'
+
+MONTH_QUESTION = '\nWich month? January, February, March, April, May, or June?.\n'
+
+DAY_QUESTION = '\nWich day? Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday.\n'
+
 def get_user_answer(question, filter_options):
     """ Validates user input considering filter options """
     while True:
@@ -37,20 +45,20 @@ def get_filters():
     print('\nHello! Let\'s explore some US bikeshare data!')
 
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    city = get_user_answer('\nWould you like to see data for Chicago, New York or Washington?\n', CITIES)
+    city = get_user_answer(CITY_QUESTION, CITIES)
 
     # get user input for month (all, january, february, ... , june)
     # get user input for day of week (all, monday, tuesday, ... sunday)
-    option = get_user_answer('\nWould you like to filter the data by month, day, both or not at all? Type "none" for no time filter.\n', FILTER_OPTIONS)
+    option = get_user_answer(FILTER_QUESTION, FILTER_OPTIONS)
     month = 'all'
     day = 'all'
     if (option == 'month'):
-        month = get_user_answer('\nWich month? January, February, March, April, May, or June?.\n', MONTHS)
+        month = get_user_answer(MONTH_QUESTION, MONTHS)
     elif (option == 'day'):
-        day = get_user_answer('\nWich day? Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday.\n', DAYS)
+        day = get_user_answer(DAY_QUESTION, DAYS)
     elif (option == 'both'):
-        month = get_user_answer('\nWich month? January, February, March, April, May, or June?.\n', MONTHS)
-        day = get_user_answer('\nWich day? Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday.\n', DAYS)
+        month = get_user_answer(MONTH_QUESTION, MONTHS)
+        day = get_user_answer(DAY_QUESTION, DAYS)
 
     print('-'*40)
     return city, month, day
@@ -109,16 +117,16 @@ def time_stats(df):
     start_time = time.time()
 
     # TO DO: display the most common month
-    popular_month, popular_month_count = count_popular(df['month'])
-    print('\nMost common month: {}, count: {}'.format(popular_month, popular_month_count))
+    common_month, common_month_count = count_popular(df['month'])
+    print('\nMost common month: {}, count: {}'.format(common_month, common_month_count))
 
     # TO DO: display the most common day of week
-    popular_day_of_week, popular_day_of_week_count = count_popular(df['day_of_week'])
-    print('Most common day of week: {}, count: {}'.format(popular_day_of_week, popular_day_of_week_count))
+    common_day_of_week, common_day_of_week_count = count_popular(df['day_of_week'])
+    print('Most common day of week: {}, count: {}'.format(common_day_of_week, common_day_of_week_count))
 
     # TO DO: display the most common start hour
-    popular_hour, popular_hour_count = count_popular(df['hour'])
-    print('Most common start hour: {}, count: {}'.format(popular_hour, popular_hour_count))
+    common_hour, common_hour_count = count_popular(df['hour'])
+    print('Most common start hour: {}, count: {}'.format(common_hour, common_hour_count))
 
     print("\nThis took %s seconds.\n" % (time.time() - start_time))
     print('-'*40)
@@ -231,7 +239,7 @@ def main():
             display_raw_data(df)
             print('-'*40)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
+        restart = get_user_answer('\nWould you like to restart? Enter yes or no.\n', ['yes', 'no'])
         if restart != 'yes':
             break
 
