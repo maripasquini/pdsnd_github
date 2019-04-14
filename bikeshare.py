@@ -16,7 +16,7 @@ DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'satur
 FILTER_OPTIONS = ['month', 'day', 'both', 'none']
 
 def get_user_answer(question, filter_options):
-    """ Validates user input """
+    """ Validates user input considering filter options """
     while True:
         answer = input(question).lower()
         if (answer not in (filter_options)):
