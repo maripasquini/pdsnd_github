@@ -239,7 +239,7 @@ def main():
             display_raw_data(df)
             print('-'*40)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
+        restart = get_user_answer('\nWould you like to restart? Enter yes or no.\n', ['yes', 'no'])
         if restart != 'yes':
             break
 
